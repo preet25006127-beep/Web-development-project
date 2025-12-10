@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Validation</title>
+    <style>
+        body {
+            /* Set background color for the entire page */
+            background-color: #f7e4ea;
+            /* Use a simple font */
+            font-family: Arial, sans-serif;
+            margin: 0; /* Remove default body margin */
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Center content horizontally */
+        }
+
+        .error {
+            color: red;
+            font-size: 14px;
+        }
+
+        /* Style for the navigation bar */
+        nav {
+            width: 100%;
+            background-color: #e6c8d4; /* A slightly darker shade for contrast */
+            padding: 10px 0;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        nav a {
+            color: #333;
+            text-decoration: none;
+            padding: 10px 15px;
+            margin: 0 5px;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            background-color: #f0d9e2;
+            border-radius: 5px;
+        }
+
+        /* Style for the form container to center it */
+        #myForm {
+            background-color: #fff; /* White background for the form itself */
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px; /* Limit the form width */
+            margin-top: 20px; /* Space from the header/nav */
+        }
+
+        /* Style for form elements */
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        input[type="number"] {
+            width: calc(100% - 20px); /* Account for padding */
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #e6c8d4; /* Use the theme color for the button */
+            color: #333;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #f0d9e2;
+        }
+
+        h1 {
+            color: #333; /* Darker color for heading */
+            margin-top: 20px;
+        }
+
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="login.html">Login</a>
+        <a href="vendors.html">Vendors</a>
+        <a href="review.html">Reviews</a> 
+        <a href="contact.html">Contact</a>
+        
+    </nav>
+    <h1 align="center">Login Page</h1>
+    <form id="myForm">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name">
+        <span id="nameError" class="error"></span><br><br>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email">
+        <span id="emailError" class="error"></span><br><br>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password">
+        <span id="passwordError" class="error"></span><br><br>+ 
+
+        <label for="age">Age:</label>
+        <input type="number" id="age" name="age">
+        <span id="ageError" class="error"></span><br><br>
+
+        <button type="button" onclick="validateForm()">Submit</button>
+    </form>
+
+    <script>
+        function validateForm() {
+            // Clear previous error messages
+            document.getElementById("nameError").textContent = "";
+            document.getElementById("emailError").textContent = "";
+            document.getElementById("passwordError").textContent = "";
+            document.getElementById("ageError").textContent = "";
+
+            let isValid = true;
+
+            // Name validation
+            const name = document.getElementById("name").value.trim();
+            if (name === "") {
+                document.getElementById("nameError").textContent = "Name is required.";
+                isValid = false;
+            }
+
+            // Email validation
+            const email = document.getElementById("email").value.trim();
+            const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            if (email === "") {
+                document.getElementById("emailError").textContent = "Email is required.";
+                isValid = false;
+            } else if (!emailPattern.test(email)) {
+                document.getElementById("emailError").textContent = "Invalid email format.";
+                isValid = false;
+            }
+
+            // Password validation
+            const password = document.getElementById("password").value.trim();
+            if (password === "") {
+                document.getElementById("passwordError").textContent = "Password is required.";
+                isValid = false;
+            } else if (password.length < 6) {
+                document.getElementById("passwordError").textContent = "Password must be at least 6 characters long.";
+                isValid = false;
+            }
+
+            // Age validation
+            const age = document.getElementById("age").value.trim();
+            if (age === "") {
+                document.getElementById("ageError").textContent = "Age is required.";
+                isValid = false;
+            } else if (isNaN(age) || age <= 0) {
+                document.getElementById("ageError").textContent = "Age must be a positive number.";
+                isValid = false;
+            }
+
+            // If all validations pass
+            if (isValid) {
+                alert("Form submitted successfully!");
+                window.location.href="Lists.html";
+            }
+        }
+    </script>
+</body>
+</html>
